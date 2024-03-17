@@ -1,5 +1,6 @@
 import 'package:app_front/presentation/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class UserProfilePage extends StatelessWidget {
   // Define variables to hold user information
@@ -18,160 +19,169 @@ class UserProfilePage extends StatelessWidget {
         title: Text(
           'User Profile',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 18.0,
             fontFamily: 'Roboto',
+            
           ),
         ),
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Color.fromARGB(255, 56, 51, 103),
         elevation: 0, 
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              height: 200, 
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(
-                      50), 
-                  bottomRight: Radius.circular(
-                      50), 
-                ),
-                image: DecorationImage(
-                  image: AssetImage(
-                      'assets/image/profile_image.jpeg'),
-                  fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Container(
+          height: 1000,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.black, Colors.purple],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                height: 150, 
+                decoration:  BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  image: const DecorationImage(
+                    image: AssetImage(
+                      'assets/image/profile_image.jpeg',
+                   
+                      ),
+
+                    //fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 16.0),
-            Card(
-              elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Personal Information',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+              SizedBox(height: 16.0),
+              Card(
+                elevation: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Personal Information',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'First name: $firstName',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.grey[800],
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'First name: $firstName',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.grey[800],
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 16.0),
-                        Expanded(
-                          child: Text(
-                            'Last name: $lastName',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.grey[800],
+                          SizedBox(width: 16.0),
+                          Expanded(
+                            child: Text(
+                              'Last name: $lastName',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.grey[800],
+                              ),
                             ),
                           ),
+                        ],
+                      ),
+                      SizedBox(height: 16.0),
+                      Text(
+                        'Email: $email',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.grey[800],
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'Email: $email',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.grey[800],
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'CIN: $cin',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.grey[800],
+                      SizedBox(height: 16.0),
+                      Text(
+                        'CIN: $cin',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.grey[800],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'Date of birth: $dateOfBirth',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.grey[800],
+                      SizedBox(height: 16.0),
+                      Text(
+                        'Date of birth: $dateOfBirth',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.grey[800],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'Phone number: $phoneNumber',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.grey[800],
+                      SizedBox(height: 16.0),
+                      Text(
+                        'Phone number: $phoneNumber',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.grey[800],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'Address: $address',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.grey[800],
+                      SizedBox(height: 16.0),
+                      Text(
+                        'Address: $address',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.grey[800],
+                        ),
                       ),
-                    ),
-                    // Add more input fields as needed
-                  ],
+                      // Add more input fields as needed
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 16.0),
-            Card(
-              elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'University Information',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+              SizedBox(height: 16.0),
+              Card(
+                elevation: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'University Information',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'University: EST',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.grey[800],
+                      SizedBox(height: 16.0),
+                      Text(
+                        'University: EST',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.grey[800],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Field of Study: Computer Science',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.grey[800],
+                      SizedBox(height: 8.0),
+                      Text(
+                        'Field of Study: Computer Science',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.grey[800],
+                        ),
                       ),
-                    ),
-                    // Add more university information as needed
-                  ],
+                      // Add more university information as needed
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-         Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
         },
         label: Text(
           'Log Out',
