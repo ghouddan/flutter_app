@@ -1,7 +1,9 @@
-//import 'package:app_front/presentation/Scan_QR.dart';
 import 'package:app_front/presentation/Scan_QR.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+//import 'package:file_picker/file_picker.dart';
+//import 'package:app_front/presentation/send_schedule.dart';
+
 
 class Day {
   final String name;
@@ -9,12 +11,11 @@ class Day {
 
   Day(this.name, this.number);
 }
-
 class CustomContainer {
   final String start_time; 
   final String element_name;
   final String end_time;
-  final bool? presence;
+   bool? presence;
 
   CustomContainer(this.start_time, this.element_name, this.end_time, this.presence);
 }
@@ -30,14 +31,32 @@ class NotificationPage extends StatelessWidget {
     Day("Sun", 16),
   ];
 
+  //final PlatformFile? selectedFile; 
+  final String? scannedData;
+  // NotificationPage({Key? key, this.selectedFile}) : super(key: key); 
+  NotificationPage({Key? key, this.scannedData}) : super(key: key);
+
+   // Function for updating presence based on scanned data
+  void scanQRCode(String scannedData) {
+    // Compare scanned data with start_time of each CustomContainer
+    for (var container in customContainers) {
+      if (container.start_time == scannedData) {
+        container.presence = true; // Update presence to true if a match is found
+        break; // Exit loop after updating the presence
+      }
+    }
+  }
+  
+
+
   final List<CustomContainer> customContainers = [
-    CustomContainer("8:30 AM", "Technique de recherche de l'emploi", "10:30 AM", false),
-    CustomContainer("10:30 AM", "Back-end programing", "12:30 AM", true),
+    CustomContainer("8:30 AM", "Technique de recherche de l'emploi", "10:30 AM", null),
+    CustomContainer("10:30 AM", "Back-end programing", "12:30 AM", null),
     CustomContainer("1:30 PM", "TRE", "3:30 PM", null),
     CustomContainer("3:30 PM", "Math", "10:30 AM", null),
-
   ];
 
+  
   int sale = 27;
 
   @override
@@ -45,6 +64,9 @@ class NotificationPage extends StatelessWidget {
     DateTime now = DateTime.now();
     String currentDay = DateFormat('EEE').format(now);
 
+    if (scannedData != null) {
+      scanQRCode(scannedData!);
+    }
     return Scaffold(
       body: Stack(
         children: [
@@ -190,17 +212,35 @@ class NotificationPage extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
               ),
-              width: 50,
-              height: 50,
-              child: IconButton(
-                onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => QR_scaner()));
-                  },
-                icon: Icon(
-                  Icons.home,
-                  size: 30,
-                  color: Colors.white,
-                ),
+              width: 120,
+              margin: EdgeInsets.only(bottom: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Home icon
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => QR_scaner()));
+                    },
+                    icon: Icon(
+                      Icons.home,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                  // emploi icon
+                  IconButton(
+                    onPressed: () {
+                      
+                    },
+                    icon: Icon(
+                      Icons.calendar_month, 
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

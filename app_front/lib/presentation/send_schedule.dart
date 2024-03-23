@@ -1,10 +1,26 @@
+import 'dart:io';
+
 import 'package:app_front/presentation/login.dart';
 import 'package:flutter/material.dart';
 import 'package:app_front/presentation/generateQR.dart';
+import 'package:file_picker/file_picker.dart';
 
 final List<String> filier = ['GI', 'TI', 'SIR'];
 
-class SendSchedule extends StatelessWidget {
+class SendSchedule extends StatefulWidget {
+  @override
+  _SendScheduleState createState() => _SendScheduleState();
+}
+
+class _SendScheduleState extends State<SendSchedule> {
+  String? selectedFileName;
+  PlatformFile? pickedfile;
+  FilePickerResult? result;
+  File? filetodispaly;
+
+  // Getter method to access filetodisplay variable
+  File? get fileToDisplay => filetodispaly;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -24,9 +40,24 @@ class SendSchedule extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // choose file 
                   GestureDetector(
-                    onTap: () {
-                      print('schdueel');
+                    onTap: () async {
+                      try{
+                      FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                      if (result != null) {
+                        String? filePath = result.files.single.path;
+                        setState(() {
+                          selectedFileName = result.files.single.name;
+                          pickedfile = result.files.first;
+                          filetodispaly = File(filePath!.toString());
+                        });
+                      }
+                      } catch(e){
+                        
+                        print(e);
+                      }
                     },
                     child: Container(
                       width: 350,
@@ -42,7 +73,7 @@ class SendSchedule extends StatelessWidget {
                         enabled: false,
                         decoration: InputDecoration(
                           alignLabelWithHint: false,
-                          hintText: 'Choose file',
+                          hintText: selectedFileName ?? 'Choose file',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -56,7 +87,7 @@ class SendSchedule extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10),
-                  SizedBox(height: 10),
+                  // drop list
                   Container(
                     width: 350,
                     height: 65,
@@ -67,7 +98,7 @@ class SendSchedule extends StatelessWidget {
                       ),
                     ),
                     child: SizedBox(
-                      height: 70, // Adjust the height of the dropdown list
+                      height: 70, 
                       child: DropdownButtonFormField<String>(
                         items: [filier[0], filier[1], filier[2]]
                             .map((String value) {
@@ -75,7 +106,7 @@ class SendSchedule extends StatelessWidget {
                             value: value,
                             child: Text(
                               value,
-                              style: TextStyle(color: Colors.red), // Change the color here
+                              style: TextStyle(color: Colors.red), 
                             ),
                           );
                         }).toList(),
@@ -121,6 +152,7 @@ class SendSchedule extends StatelessWidget {
             ),
           ),
         ),
+        // navigation  bar at the bottom of the page
         Positioned(
           bottom: 10,
           left: 10,
@@ -139,6 +171,7 @@ class SendSchedule extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+              // QR generation page
                 IconButton(
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => GenerateQRPage()));
@@ -149,6 +182,7 @@ class SendSchedule extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
+                // Sign out 
                 IconButton(
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));

@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart'; // Import du package pour ouvrir des URLs
 
-class GenerateQRPage extends StatelessWidget {
-  final List<String> fieldsOfStudy = ['Computer Science', 'Software Engineering', 'Other Field'];
-  final List<String> modules = ['Module 1', 'Module 2', 'Module 3'];
+class GenerateQRPage extends StatefulWidget {
+  @override
+  _GenerateQRPageState createState() => _GenerateQRPageState();
+}
+
+class _GenerateQRPageState extends State<GenerateQRPage> {
+  final List<String> filliere = [
+    'Computer Science',
+    'Software Engineering',
+    'Other Field'
+  ];
+  final List<String> module = ['Module 1', 'Module 2', 'Module 3'];
+  String qrData = ''; // Variable pour stocker les données du champ de texte
+  String professor = ''; // Variable to store Professor
+  String? fillieres = ''; // Variable to store Filliere
+  String? modules = ''; // Variable to store Module
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +37,7 @@ class GenerateQRPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
-                height: 200,
-                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.3,
                 child: Padding(
                   padding: EdgeInsets.only(top: 0),
                   child: Image.asset(
@@ -56,6 +70,12 @@ class GenerateQRPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6.0),
                           ),
                         ),
+                        onChanged: (value) {
+                          setState(() {
+                            qrData =
+                                value; // Mettre à jour les données du champ de texte
+                          });
+                        },
                       ),
                       SizedBox(height: 16.0),
                       TextFormField(
@@ -66,24 +86,31 @@ class GenerateQRPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6.0),
                           ),
                         ),
+                        onChanged: (value) {
+                          setState(() {
+                            qrData = value; // Update Professor
+                          });
+                        },
                       ),
                       SizedBox(height: 16.0),
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
-                          labelText: 'Field of Study',
-                          hintText: 'Select a field of study',
+                          labelText: 'Filliere',
+                          hintText: 'Select a filliere',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                           ),
                         ),
-                        items: fieldsOfStudy.map((String value) {
+                        items: filliere.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
                           );
                         }).toList(),
                         onChanged: (value) {
-                          // Handle onChanged event
+                          setState(() {
+                            fillieres = value; // Update Filliere
+                          });
                         },
                       ),
                       SizedBox(height: 16.0),
@@ -95,14 +122,16 @@ class GenerateQRPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(6.0),
                           ),
                         ),
-                        items: modules.map((String value) {
+                        items: module.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
                           );
                         }).toList(),
                         onChanged: (value) {
-                          // Handle onChanged event
+                          setState(() {
+                            modules = value; // Update Module
+                          });
                         },
                       ),
                     ],
@@ -118,12 +147,81 @@ class GenerateQRPage extends StatelessWidget {
         children: [
           FloatingActionButton.extended(
             onPressed: () {
-              // Implement QR code generation functionality
+              if (qrData.isNotEmpty) {
+                String qrContent = qrData;
+                //     "Date: $qrData\nProfessor: $qrData\nFilliere: $fillieres\nModule: $modules";
+
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('QR Code Generated'),
+                      content: Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: MediaQuery.of(context).size.width * 0.6,
+                        child: QrImageView(
+                          data: qrContent,
+                        ),
+                      ),
+                      actions: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                                  // Handle the action for the first icon
+                                  //_launchURL('https://wa.me/?text=$qrData');
+                                },
+                                icon: Icon(Icons.telegram),
+                              ),
+                            ),
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                                  // Handle the action for the second icon
+                                  //_launchURL('mailto:?subject=QR Code&body=$qrData');
+                                },
+                                icon: Icon(Icons.email),
+                              ),
+                            ),
+                            Expanded(
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('Close'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Empty Field'),
+                      content: Text('Please enter data to generate QR code.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
             },
             label: Text(
               'Generate',
               style: TextStyle(
-                fontSize: 16.0,
+                fontSize: MediaQuery.of(context).size.width * 0.04,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Roboto',
               ),
@@ -131,35 +229,17 @@ class GenerateQRPage extends StatelessWidget {
             icon: Icon(Icons.qr_code),
             backgroundColor: Colors.blue[700],
           ),
-          SizedBox(width: 10),
-          FloatingActionButton(
-            onPressed: () {
-              print('mail taped');
-            },
-            child: Image.asset(
-              'assets/image/gmail.png',
-              height:40,
-              width: 40,
-              ),// Replace icon1 with your desired icon
-            backgroundColor: Color.fromARGB(255, 191, 221, 192), // Replace with desired color
-          ),
-          SizedBox(width: 10),
-          FloatingActionButton(
-            onPressed: () {
-              print('watsapp taped');
-            },
-            child: Image.asset(
-              'assets/image/whatsapp.png',
-               height:40,
-               width: 40,
-              ), 
-            backgroundColor: const Color.fromARGB(255, 230, 164, 66), 
-          ),
-          SizedBox(width: 20),
-          
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
