@@ -19,14 +19,13 @@ class UserProfilePage extends StatelessWidget {
         title: Text(
           'User Profile',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 18.0,
-            fontFamily: 'Roboto',
-            
+            fontFamily: 'Poppins',
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 56, 51, 103),
-        elevation: 0, 
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -43,14 +42,13 @@ class UserProfilePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                height: 150, 
-                decoration:  BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
+                height: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
                   image: const DecorationImage(
                     image: AssetImage(
                       'assets/image/profile_image.jpeg',
-                   
-                      ),
+                    ),
 
                     //fit: BoxFit.cover,
                   ),
@@ -181,18 +179,19 @@ class UserProfilePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Login()));
         },
         label: Text(
           'Log Out',
           style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
-            fontFamily: 'Roboto',
+            fontFamily: 'poppins',
           ),
         ),
         icon: Icon(Icons.logout),
-        backgroundColor: Colors.blue[700],
+        backgroundColor: Color.fromARGB(255, 182, 85, 234),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
