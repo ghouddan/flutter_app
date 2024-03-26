@@ -36,16 +36,32 @@ class NotificationPage extends StatelessWidget {
   // NotificationPage({Key? key, this.selectedFile}) : super(key: key); 
   NotificationPage({Key? key, this.scannedData}) : super(key: key);
 
-   // Function for updating presence based on scanned data
-  void scanQRCode(String scannedData) {
-    // Compare scanned data with start_time of each CustomContainer
-    for (var container in customContainers) {
-      if (container.start_time == scannedData) {
-        container.presence = true; // Update presence to true if a match is found
-        break; // Exit loop after updating the presence
-      }
+  // Function for updating presence based on scanned data
+void scanQRCode(String scannedData) {
+  // Get the current time
+  DateTime currentTime = DateTime.now();
+
+  for (var container in customContainers) {
+    DateTime startTime = DateFormat.jm().parse(container.start_time);
+    DateTime endTime = DateFormat.jm().parse(container.end_time);
+
+    DateTime currentDate = DateTime(currentTime.year, currentTime.month, currentTime.day);
+
+    startTime = DateTime(currentDate.year, currentDate.month, currentDate.day, startTime.hour, startTime.minute);
+    endTime = DateTime(currentDate.year, currentDate.month, currentDate.day, endTime.hour, endTime.minute);
+
+    if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
+      container.presence = true; 
+      break;
+    }
+    else{
+       container.presence = false;
     }
   }
+}
+
+
+
   
 
 
@@ -53,7 +69,7 @@ class NotificationPage extends StatelessWidget {
     CustomContainer("8:30 AM", "Technique de recherche de l'emploi", "10:30 AM", null),
     CustomContainer("10:30 AM", "Back-end programing", "12:30 AM", null),
     CustomContainer("1:30 PM", "TRE", "3:30 PM", null),
-    CustomContainer("3:30 PM", "Math", "10:30 AM", null),
+    CustomContainer("3:30 PM", "Math", "5:30 PM", null),
   ];
 
   
@@ -232,7 +248,9 @@ class NotificationPage extends StatelessWidget {
                   // emploi icon
                   IconButton(
                     onPressed: () {
-                      
+                     String formattedTime = DateFormat.jm().format(DateTime.now());
+                     DateTime parsedTime = DateFormat.jm().parseLoose(formattedTime); // Recommended
+                      print(formattedTime);
                     },
                     icon: Icon(
                       Icons.calendar_month, 
