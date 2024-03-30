@@ -1,26 +1,41 @@
 package com.example.back_end.flutter.models;
 
+import jakarta.persistence.Access;
+
+
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "cours")
+
 public class cours {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private double id;
+	private Long id;
 	private String nom;
 	private int sale;
 	private String date_debu;
 	private String date_fin;
+	
+	@ManyToOne
 	private professeur professeur;
 	private String filier;
 	
+	@OneToOne
+	@JoinColumn(name = "present_id")
+	private present present;
 	
+	
+	public cours() {
+	}
 	
 	public cours(String nom, int sale, String date_debu, String date_fin, professeur professeur, String filier) {
 		super();
@@ -32,10 +47,10 @@ public class cours {
 		this.filier = filier;
 	}
 	
-	public double getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(double id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNom() {

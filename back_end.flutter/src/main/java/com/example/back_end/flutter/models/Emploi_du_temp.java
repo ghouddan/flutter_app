@@ -1,5 +1,9 @@
 package com.example.back_end.flutter.models;
 
+import jakarta.persistence.Access;
+
+
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,23 +14,28 @@ public class Emploi_du_temp {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private double id;
+	private long id;
 	private String filier;
-	private Byte[] emploi;
+	private String emploi;
 	
 	
-	public Emploi_du_temp(String filier, Byte[] emploi) {
+	
+	public Emploi_du_temp() {
+	}
+
+
+	public Emploi_du_temp(String filier, String emploi) {
 		this.filier = filier;
 		this.emploi = emploi;
 	}
 
 
-	public double getId() {
+	public long getId() {
 		return id;
 	}
 
 
-	public void setId(double id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -41,12 +50,12 @@ public class Emploi_du_temp {
 	}
 
 
-	public Byte[] getEmploi() {
+	public String getEmploi() {
 		return emploi;
 	}
 
 
-	public void setEmploi(Byte[] emploi) {
+	public void setEmploi(String emploi) {
 		this.emploi = emploi;
 	}
 	

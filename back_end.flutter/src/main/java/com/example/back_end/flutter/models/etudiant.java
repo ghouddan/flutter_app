@@ -2,6 +2,8 @@ package com.example.back_end.flutter.models;
 
 import io.micrometer.common.lang.NonNull;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,30 +11,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 @Entity
-@Table(name = "etudiant")
-public class etudiant extends user{
+public class etudiant{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private double id;
+	private long etudiant_id;
 	private String nom;
 	private String prenom;
-	@Column(name = "email", unique = true)
 	private String flilier;
-	@NonNull
-	@Column(name = "email", unique = true)
 	private String Apoger;
 	private String ecole;
 	private String adress;
 	private double phone;
+	private String email;
 	
 	
+	public etudiant() {
+	}
 	
 	
-	
-	public etudiant(String email, String pasword, String type, String nom, String prenom, String flilier, String apoger,
+	public etudiant(String email,String nom, String prenom, String flilier, String apoger,
 			String ecole, String adress, double phone) {
-		super(email, pasword, type);
+		this.email = email;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.flilier = flilier;
@@ -42,11 +42,21 @@ public class etudiant extends user{
 		this.phone = phone;
 	}
 	
-	public double getId() {
-		return id;
+	public String getEmail() {
+		return email;
 	}
-	public void setId(double id) {
-		this.id = id;
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public long getId() {
+		return etudiant_id;
+	}
+	public void setId(long id) {
+		this.etudiant_id = id;
 	}
 	public String getNom() {
 		return nom;

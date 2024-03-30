@@ -5,7 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.back_end.flutter.models.*;
 
-public interface userReposetry extends JpaRepository<user, Double>{
+public interface userReposetry extends JpaRepository<user, Long>{
+	
+    user findByEmailAndPassword(String email, String password);
 
-	 user findByEmailAndPassword(String email, String password);
+	
+	
 }

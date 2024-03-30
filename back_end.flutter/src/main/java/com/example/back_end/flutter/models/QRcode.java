@@ -1,5 +1,8 @@
 package com.example.back_end.flutter.models;
 
+import jakarta.persistence.Access;
+
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,17 +13,21 @@ public class QRcode {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private double id;
+	private long id;
 	private String date;
 	private String professeur;
 	private String filier;
 	private String module;
-	private byte[] QRode;
+	private String QRode;
 	
 	
 	
 	
-	public QRcode(String date, String professeur, String filier, String module, byte[] qRode) {
+	
+	public QRcode() {
+	}
+
+	public QRcode(String date, String professeur, String filier, String module, String qRode) {
 		super();
 		this.date = date;
 		this.professeur = professeur;
@@ -29,10 +36,10 @@ public class QRcode {
 		QRode = qRode;
 	}
 	
-	public double getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(double id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getDate() {
@@ -59,10 +66,10 @@ public class QRcode {
 	public void setModule(String module) {
 		this.module = module;
 	}
-	public byte[] getQRode() {
+	public String getQRode() {
 		return QRode;
 	}
-	public void setQRode(byte[] qRode) {
+	public void setQRode(String qRode) {
 		QRode = qRode;
 	}
 	

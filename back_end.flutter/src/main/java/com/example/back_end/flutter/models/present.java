@@ -1,38 +1,51 @@
 package com.example.back_end.flutter.models;
 
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class present {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private double id;
+	private long present_id;
+	
+	@OneToOne(mappedBy = "present")
 	private cours cour;
+	
+	@ManyToOne
+	@JoinColumn(name = "etudiant_id")
 	private etudiant etudiant;
 	private boolean present;
-	private QRcode qrcode;
 	
 	
+	
+	public present() {
+	}
+
+
 	public present(cours cour, etudiant etudiant, boolean present, QRcode Qrcode) {
 		super();
 		this.cour = cour;
 		this.etudiant = etudiant;
 		this.present = present;
-		this.qrcode = Qrcode;
 	}
 
 
-	public double getId() {
-		return id;
+	public long getId() {
+		return present_id;
 	}
 
 
-	public void setId(double id) {
-		this.id = id;
+	public void setId(long id) {
+		this.present_id = id;
 	}
 
 
@@ -65,19 +78,6 @@ public class present {
 		this.present = present;
 	}
 
-
-	public QRcode getQrcode() {
-		return qrcode;
-	}
-
-
-	public void setQrcode(QRcode qrcode) {
-		this.qrcode = qrcode;
-	}
-	
-	
-	
-	
 	
 	
 	

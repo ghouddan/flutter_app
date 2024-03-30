@@ -1,6 +1,9 @@
 package com.example.back_end.flutter.models;
 
 
+import jakarta.persistence.Access;
+
+import jakarta.persistence.AccessType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,11 +11,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class professeur extends user{
+public class professeur{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private double id;
+	private long id;
 	private String nom;
 	private String prenom;
 	@Column(name = "email", unique = true)
@@ -24,18 +27,22 @@ public class professeur extends user{
 	
 	
 	
+	
+	
+	public professeur() {
+	}
+
 	public professeur(String nom, String prenom, String email, String pasword, String type, String adress, double phone) {
-		super(email, pasword, type);
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adress = adress;
 		this.phone = phone;
 	}
 	
-	public double getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(double id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getNom() {

@@ -1,30 +1,40 @@
 package com.example.back_end.flutter.models;
 
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
+@Entity
 public class user {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private double id;
+	private long id;
 	private String email;
-	private String pasword;
+	private String password;
 	private String type;
 	
+	
+	
+	public user() {
+	}
+
 	public user(String email, String pasword, String type) {
 		super();
 		this.email = email;
-		this.pasword = pasword;
+		this.password = pasword;
 		this.type = type;
 	}
 
-	public double getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(double id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -37,11 +47,11 @@ public class user {
 	}
 
 	public String getPasword() {
-		return pasword;
+		return password;
 	}
 
 	public void setPasword(String pasword) {
-		this.pasword = pasword;
+		this.password = pasword;
 	}
 
 	public String getType() {
