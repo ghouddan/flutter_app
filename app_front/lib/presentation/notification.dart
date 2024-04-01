@@ -1,8 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:app_front/presentation/Scan_QR.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 //import 'package:file_picker/file_picker.dart';
 //import 'package:app_front/presentation/send_schedule.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:open_filex/open_filex.dart';
+
+
+
 
 
 class Day {
@@ -22,19 +30,21 @@ class CustomContainer {
 
 class NotificationPage extends StatelessWidget {
   final List<Day> days = [
-    Day("Mon", 10),
-    Day("Tue", 11),
-    Day("Wed", 12),
-    Day("Thu", 13),
-    Day("Fri", 14),
-    Day("Sat", 15),
-    Day("Sun", 16),
+    Day("Mon", 1),
+    Day("Tue", 2),
+    Day("Wed", 3),
+    Day("Thu", 4),
+    Day("Fri", 5),
+    Day("Sat", 6),
+    Day("Sun", 7),
   ];
 
   //final PlatformFile? selectedFile; 
   final String? scannedData;
   // NotificationPage({Key? key, this.selectedFile}) : super(key: key); 
   NotificationPage({Key? key, this.scannedData}) : super(key: key);
+
+  final String url_emploi = "assets/pdf/emploi_du_temp.pdf";
 
   // Function for updating presence based on scanned data
 void scanQRCode(String scannedData) {
@@ -45,12 +55,12 @@ void scanQRCode(String scannedData) {
     DateTime startTime = DateFormat.jm().parse(container.start_time);
     DateTime endTime = DateFormat.jm().parse(container.end_time);
 
-    DateTime currentDate = DateTime(currentTime.year, currentTime.month, currentTime.day);
+    DateTime currentDate = DateTime(currentTime.year, currentTime.month, currentTime.day, currentTime.hour, currentTime.minute);
 
     startTime = DateTime(currentDate.year, currentDate.month, currentDate.day, startTime.hour, startTime.minute);
     endTime = DateTime(currentDate.year, currentDate.month, currentDate.day, endTime.hour, endTime.minute);
 
-    if (currentTime.isAfter(startTime) && currentTime.isBefore(endTime)) {
+    if (currentDate.isAfter(startTime) && currentDate.isBefore(endTime)) {
       container.presence = true; 
       break;
     }
@@ -60,8 +70,36 @@ void scanQRCode(String scannedData) {
   }
 }
 
+void openPDF(url) async {
+      Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
 
+void printTime(){
+    DateTime currentTime = DateTime.now();
+  for (var container in customContainers){
+    DateTime startTime = DateFormat.jm().parse(container.start_time);
+    DateTime endTime = DateFormat.jm().parse(container.end_time);
+    DateTime currentDate = DateTime(currentTime.year, currentTime.month, currentTime.day, currentTime.hour, currentTime.minute);
+    startTime = DateTime(currentDate.year, currentDate.month, currentDate.day, startTime.hour, startTime.minute);
+    endTime = DateTime(currentDate.year, currentDate.month, currentDate.day, endTime.hour, endTime.minute);
+    print(startTime);
+    print(endTime);
+    print(currentTime);
+    print("-------------------------");
+    if(currentTime.isAfter(startTime) && currentTime.isBefore(endTime)){
+      print("true");
+    }else{
+      print("false");
+    }
+
+  }
+}
   
 
 
@@ -248,9 +286,13 @@ void scanQRCode(String scannedData) {
                   // emploi icon
                   IconButton(
                     onPressed: () {
-                     String formattedTime = DateFormat.jm().format(DateTime.now());
-                     DateTime parsedTime = DateFormat.jm().parseLoose(formattedTime); // Recommended
-                      print(formattedTime);
+                    //  String formattedTime = DateFormat.jm().format(DateTime.now());
+                    //  DateTime parsedTime = DateFormat.jm().parseLoose(formattedTime); // Recommended
+                    //   print(formattedTime);
+                    //openPDF(url_emploi);
+                    //OpenFilex.open("./../assets/pdf/emploi_du_temp.pdf");
+                    printTime();
+
                     },
                     icon: Icon(
                       Icons.calendar_month, 
@@ -258,7 +300,9 @@ void scanQRCode(String scannedData) {
                       color: Colors.white,
                     ),
                   ),
+                  
                 ],
+                
               ),
             ),
           ),

@@ -3,14 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class UserProfilePage extends StatelessWidget {
+  
+  
+  
   // Define variables to hold user information
-  final String firstName = "John";
-  final String lastName = "Doe";
-  final String email = "john.doe@example.com";
-  final String cin = "123456789";
+  final String firstName = "aymane";
+  final String lastName = "hodayfa";
+  final String email = "hodayfa@example.com";
+  final String cin = "AE3456789";
   final String dateOfBirth = "January 1, 1990";
-  final String phoneNumber = "+1234567890";
-  final String address = "123 Main St, City, Country";
+  final String phoneNumber = "+212-64567890";
+  final String address = "123 Main , sale";
+
+//  Future<void> fetchEtudiantData() async {
+//     final url = Uri.parse('http://192.168.11.105:8080/etudiant/email/${widget.email_personne}');
+
+//     try {
+//       final response = await http.get(url);
+//       if (response.statusCode == 200) {
+//         // Parse the response body
+//         final responseData = json.decode(response.body);
+
+//         // Set the user information variables
+//         setState(() {
+//           firstName = responseData['nom'];
+//           lastName = responseData['prenom'];
+//           email = responseData['email'];
+//           cin = responseData['cin'];
+//           dateOfBirth = responseData['dateOfBirth'];
+//           phoneNumber = responseData['phone'];
+//           address = responseData['adress'];
+//         });
+//       } else {
+//         // Handle error if the request fails
+//         print('Failed to load user data: ${response.statusCode}');
+//       }
+//     } catch (error) {
+//       // Handle network errors
+//       print('Error occurred while fetching user data: $error');
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {

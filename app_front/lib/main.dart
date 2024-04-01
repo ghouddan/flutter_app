@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: Login(), // Set NotificationPage as the initial screen
+        home: Login(),
       ),
     );
   }

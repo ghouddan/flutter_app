@@ -2,6 +2,9 @@ import 'package:app_front/presentation/Scan_QR.dart';
 import 'package:app_front/presentation/send_schedule.dart';
 import 'package:flutter/material.dart';
 //import 'package:app_front/presentation/Scan_QR.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class Login extends StatefulWidget {
   @override
@@ -19,6 +22,45 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
+//login function:
+// Future<void> _login() async {
+//     final url = Uri.parse('http://192.168.11.105:8080/user/login');
+//     final email = _emailController.text;
+//     final password = _passwordController.text;
+    
+//     try {
+//       final response = await http.post(
+//         url,
+//         body: json.encode({"email": email, "password": password}),
+//         headers: {"Content-Type": "application/json"},
+//       );
+      
+//       if (response.statusCode == 200) {
+//         // Successful login, navigate to appropriate screen based on user type
+//         final responseData = json.decode(response.body);
+//         if (responseData['type'] == 'P') {
+//           Navigator.push(context, MaterialPageRoute(builder: (context) => SendSchedule()));
+//         } else {
+//           Navigator.push(context, MaterialPageRoute(builder: (context) => QR_scaner()));
+//         }
+//       } else {
+//         // Display error message
+//         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//           content: Text('Failed to login. Please check your credentials.'),
+//         ));
+//       }
+//     } catch (error) {
+//       // Handle network errors
+//       print('Error occurred: $error');
+//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//         content: Text('An unexpected error occurred. Please try again later.'),
+//       ));
+//     }
+//   }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +69,7 @@ class _LoginState extends State<Login> {
           children: [
             // Dégradé de couleurs en arrière-plan
             Container(
-              height: 800,
+              height: 900,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color.fromARGB(255, 18, 17, 17), Colors.black],
@@ -77,7 +119,7 @@ class _LoginState extends State<Login> {
                     const Text(
                       'Welcome back!',
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: 45,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFEFEFEF),
                         fontFamily: 'poppins',
@@ -207,10 +249,11 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           onPressed: () {
+                            //_login();
                             String email = _emailController.text;
                             String password = _passwordController.text;
 
-                            if (email == "ghouddan@gmail.com" &&
+                            if (email == "user@gmail.com" &&
                                 password == "admin") {
                               Navigator.push(
                                   context,

@@ -9,11 +9,11 @@ class GenerateQRPage extends StatefulWidget {
 
 class _GenerateQRPageState extends State<GenerateQRPage> {
   final List<String> filliere = [
-    'Computer Science',
-    'Software Engineering',
-    'Other Field'
+    'Genie civil',
+    'Genie informatique',
+    'system informatique et reseau'
   ];
-  final List<String> module = ['Module 1', 'Module 2', 'Module 3'];
+  final List<String> module = ['Back-end', 'Front-end', 'Full stack'];
   String qrData = ''; // Variable pour stocker les données du champ de texte
   String professor = ''; // Variable to store Professor
   String? fillieres = ''; // Variable to store Filliere
@@ -38,6 +38,7 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
             children: [
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.3,
+    
                 child: Padding(
                   padding: EdgeInsets.only(top: 0),
                   child: Image.asset(
@@ -55,6 +56,7 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
+                        
                         'QR Code Information',
                         style: TextStyle(
                           fontSize: 20.0,
@@ -77,21 +79,21 @@ class _GenerateQRPageState extends State<GenerateQRPage> {
                           });
                         },
                       ),
-                      SizedBox(height: 16.0),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Professor',
-                          hintText: 'Enter the professor',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.0),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            qrData = value; // Update Professor
-                          });
-                        },
-                      ),
+                      // SizedBox(height: 16.0),
+                      // TextFormField(
+                      //   decoration: InputDecoration(
+                      //     labelText: 'Professor',
+                      //     hintText: 'Enter the professor',
+                      //     border: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(6.0),
+                      //     ),
+                      //   ),
+                      //   onChanged: (value) {
+                      //     setState(() {
+                      //       qrData = value; // Update Professor
+                      //     });
+                      //   },
+                      // ),
                       SizedBox(height: 16.0),
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(
